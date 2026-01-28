@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { MenuItem, OrderItem } from "../types/index";
 
 
@@ -12,6 +12,10 @@ export default function useOrder() {
 	}
 
 	const [order, setOrder] = useState<OrderItem[]>(initialOrder)
+
+	useEffect(() => {
+		localStorage.setItem('order', JSON.stringify(order))
+	}, [order])
 
 	const addItem = (item: MenuItem) => {
 
@@ -41,7 +45,7 @@ export default function useOrder() {
 
 		setOrder(updatedOrder)
 	}
-	
+
 	const decreaseQuantity = (id: number) => {
 		const updatedOrder = order.map(item =>
 			item.id === id
@@ -54,6 +58,8 @@ export default function useOrder() {
 
 		setOrder(filteredOrder)
 	}
+
+
 
 
 	return {

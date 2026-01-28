@@ -26,7 +26,7 @@ function App() {
         </div>
 
         <div>
-          <h2>Consumo</h2>
+          <h2 className="text-center text-4xl font-black">Consumo</h2>
 
           {order.map((item) => (
 						<ItemCart key={item.id} item={item}
