@@ -3,7 +3,8 @@ import { MenuItem } from "./components/MenuItem";
 import { menuItems } from "./db/db";
 import useOrder from "./hooks/useOrder";
 function App() {
-  const { addItem, order, isEmpty } = useOrder();
+
+  const { addItem, order, increaseQuantity, decreaseQuantity} = useOrder();
 
   return (
     <>
@@ -28,7 +29,9 @@ function App() {
           <h2>Consumo</h2>
 
           {order.map((item) => (
-            <ItemCart key={item.id} item={item} />
+						<ItemCart key={item.id} item={item}
+							increaseQuantity={increaseQuantity}
+							decreaseQuantity={decreaseQuantity} />
           ))}
         </div>
       </main>

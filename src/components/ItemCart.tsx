@@ -1,10 +1,13 @@
-import type { OrderItem } from "../types/index";
+import type { OrderItem, OrderId} from "../types/index";
 
 type ItemCartProps = {
 	item: OrderItem
+	increaseQuantity: (id: OrderId) => void 
+	decreaseQuantity: (id: OrderId) => void
+
 };
 
-export function ItemCart({ item}: ItemCartProps) {
+export function ItemCart({ item, increaseQuantity, decreaseQuantity}: ItemCartProps) {
   return (
     <>
       
@@ -20,7 +23,8 @@ export function ItemCart({ item}: ItemCartProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full border text-lg font-bold hover:bg-gray-100">
+					<button className="w-8 h-8 flex items-center justify-center rounded-full border text-lg font-bold hover:bg-gray-100"
+					onClick={ () => decreaseQuantity(item.id)}>
               −
             </button>
 
@@ -28,7 +32,8 @@ export function ItemCart({ item}: ItemCartProps) {
               {item.quantity}
             </span>
 
-            <button className="w-8 h-8 flex items-center justify-center rounded-full border text-lg font-bold hover:bg-gray-100">
+					<button className="w-8 h-8 flex items-center justify-center rounded-full border text-lg font-bold hover:bg-gray-100"
+					onClick={ () => increaseQuantity(item.id)}>
               +
             </button>
           </div>

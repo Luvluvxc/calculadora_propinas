@@ -1,4 +1,4 @@
-import { useState, useMemo} from "react";
+import { useState } from "react";
 import type { MenuItem, OrderItem } from "../types/index";
 
 
@@ -6,28 +6,57 @@ import type { MenuItem, OrderItem } from "../types/index";
 
 export default function useOrder() {
 
-	const initialOrder = () : OrderItem[] => { 
+	const initialOrder = (): OrderItem[] => {
 		const localStorageCart = localStorage.getItem('order')
 		return localStorageCart ? JSON.parse(localStorageCart) : []
 	}
-	
+
 	const [order, setOrder] = useState<OrderItem[]>(initialOrder)
-	
-	const addItem = (item : MenuItem) => {
-		
+
+	const addItem = (item: MenuItem) => {
+
 		const itemExist = order.find(OrderItem => OrderItem.id === item.id)
-		if (!itemExist) {
-  		const newItem: OrderItem = { ...item, quantity: 1 }
-  		setOrder([...order, newItem])
-		} else{
-  		setOrder([...order, { ...item, quantity: 1 }])
+
+		if (itemExist) {
+			const updatedOrder = order.map(orderItem =>
+				orderItem.id === item.id
+					? { ...orderItem, quantity: orderItem.quantity + 1 }
+					: orderItem
+			)
+
+			setOrder(updatedOrder)
+		} else {
+			const newItem: OrderItem = { ...item, quantity: 1 }
+			setOrder([...order, newItem])
 		}
 
 	}
+
+	const increaseQuantity = (id: number) => {
+		const updatedOrder = order.map(item =>
+			item.id === id
+				? { ...item, quantity: item.quantity + 1 }
+				: item
+		)
+
+		setOrder(updatedOrder)
+	}
 	
-	const isEmpty = useMemo(() => order.length === 0, [order])
+	const decreaseQuantity = (id: number) => {
+		const updatedOrder = order.map(item =>
+			item.id === id
+				? { ...item, quantity: item.quantity - 1 }
+				: item
+		)
+
+		const filteredOrder = updatedOrder.filter(item => item.quantity > 0)
+
+
+		setOrder(filteredOrder)
+	}
+
 
 	return {
-		addItem, order, setOrder, isEmpty
+		addItem, order, setOrder, increaseQuantity, decreaseQuantity
 	}
 }
