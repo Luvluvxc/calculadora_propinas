@@ -9,3 +9,5 @@ export type OrderItem = MenuItem & {
 }
 
 export type OrderId = OrderItem['id']
+
+export type OrderTotal = OrderItem['id']
