@@ -38,7 +38,8 @@ export default function TipPercentageForm() {
               className="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg cursor-pointer font-medium transition-all duration-200 peer-checked:bg-blue-500 peer-checked:border-blue-500 peer-checked:text-white hover:bg-blue-500 hover:border-blue-500 hover:text-white"
             >
               {tip.label}
-            </label>
+						</label>
+						
           </div>
         ))}
       </form>
