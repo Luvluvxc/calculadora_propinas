@@ -17,7 +17,8 @@ export const OrderTotals = ({ order, tip, setTip }: OrderTotalProps) => {
   );
 
   const tipAmount = useMemo(() => subtotalAmount * tip, [subtotalAmount, tip]); // calcula la propina UseMemo siempre leva callback
-  const totalAmount = useMemo(() => subtotalAmount + tipAmount,
+  const totalAmount = useMemo(
+    () => subtotalAmount + tipAmount,
     [subtotalAmount, tipAmount],
   );
 
