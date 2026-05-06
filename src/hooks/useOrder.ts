@@ -12,7 +12,7 @@ export default function useOrder() {
 	}
 
 	const [order, setOrder] = useState<OrderItem[]>(initialOrder)
-
+	const [tip, setTip] = useState(0)
 	useEffect(() => {
 		localStorage.setItem('order', JSON.stringify(order))
 	}, [order])
@@ -63,6 +63,6 @@ export default function useOrder() {
 
 
 	return {
-		addItem, order, setOrder, increaseQuantity, decreaseQuantity
+		addItem, order, setOrder, tip, setTip, increaseQuantity, decreaseQuantity
 	}
 }

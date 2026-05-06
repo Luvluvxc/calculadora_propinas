@@ -1,3 +1,9 @@
+
+type PercentageFormProps = {
+  setTip: React.Dispatch<React.SetStateAction<number>>
+}
+
+
 const tipOptions = [
   {
     id: 'tip-10',
@@ -16,7 +22,8 @@ const tipOptions = [
   },
 ]
 
-export default function TipPercentageForm() {
+
+export default function TipPercentageForm({setTip} : PercentageFormProps) {
   return (
     <div className="mt-8 p-6 bg-gray-50 rounded-lg shadow-md">
       <h3 className="text-2xl font-bold text-center mb-4 text-gray-800">
@@ -31,7 +38,8 @@ export default function TipPercentageForm() {
               id={tip.id}
               name="tip"
               value={tip.value}
-              className="hidden peer"
+							className="hidden peer"
+							onChange={e => setTip(Number(e.target.value))}
             />
             <label
               htmlFor={tip.id}

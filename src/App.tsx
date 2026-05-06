@@ -6,7 +6,7 @@ import TipPercentageForm from "./components/TipPercentageForm";
 import useOrder from "./hooks/useOrder";
 
 function App() {
-  const { addItem, order, increaseQuantity, decreaseQuantity } = useOrder();
+  const { addItem, order, increaseQuantity, decreaseQuantity, tip, setTip } = useOrder();
 
   return (
     <>
@@ -23,7 +23,7 @@ function App() {
             Menú
           </h2>
 
-          <div className="space-y-3 mt-3 max-h-[600px] overflow-y-auto pr-2">
+          <div className="space-y-3 mt-3  overflow-y-auto pr-2">
             {menuItems.map((item) => (
               <MenuItem key={item.id} item={item} addItem={addItem} />
             ))}
@@ -36,7 +36,7 @@ function App() {
             Consumo
           </h2>
 
-          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 mb-6">
+          <div className="space-y-3  overflow-y-auto pr-2 mb-6">
             {order.length === 0 ? (
               <p className="text-center text-gray-500 py-8">
                 No hay productos en el pedido
@@ -56,7 +56,11 @@ function App() {
           {/* Sección de propina - después de todos los items */}
           {order.length > 0 && (
             <div className="mt-6 pt-4 border-t-2 border-gray-200">
-              <TipPercentageForm />
+							<TipPercentageForm
+							
+							setTip={setTip}
+							
+							/>
             </div>
           )}
         </div>
@@ -74,4 +78,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;  
