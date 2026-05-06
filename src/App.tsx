@@ -2,7 +2,6 @@ import { ItemCart } from "./components/ItemCart";
 import { MenuItem } from "./components/MenuItem";
 import { OrderTotals } from "./components/OrderTotals";
 import { menuItems } from "./db/db";
-import TipPercentageForm from "./components/TipPercentageForm";
 import useOrder from "./hooks/useOrder";
 
 function App() {
@@ -52,17 +51,6 @@ function App() {
               ))
             )}
           </div>
-
-          {/* Sección de propina - después de todos los items */}
-          {order.length > 0 && (
-            <div className="mt-6 pt-4 border-t-2 border-gray-200">
-							<TipPercentageForm
-							
-							setTip={setTip}
-							
-							/>
-            </div>
-          )}
         </div>
       </main>
 
@@ -70,7 +58,7 @@ function App() {
       {order.length > 0 && (
         <div className="max-w-7xl mx-auto py-8 px-4">
           <div className="bg-white rounded-xl shadow-md p-6">
-            <OrderTotals order={order} />
+            <OrderTotals order={order} tip={tip} setTip={setTip} />
           </div>
         </div>
       )}

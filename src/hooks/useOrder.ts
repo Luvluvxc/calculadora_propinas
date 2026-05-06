@@ -13,6 +13,8 @@ export default function useOrder() {
 
 	const [order, setOrder] = useState<OrderItem[]>(initialOrder)
 	const [tip, setTip] = useState(0)
+
+	
 	useEffect(() => {
 		localStorage.setItem('order', JSON.stringify(order))
 	}, [order])

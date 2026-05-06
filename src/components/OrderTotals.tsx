@@ -1,14 +1,27 @@
 import { formatCurrency } from "../helpers";
 import type { OrderItem } from "../types";
 import { useMemo } from "react";
+import type { Dispatch, SetStateAction } from 'react';
+
+
+
+
+
 type OrderTotalProps = {
 	order: OrderItem[]
+	tip: number                            
+  setTip: Dispatch<SetStateAction<number>>
 }
 
 
-export const OrderTotals = ({ order }: OrderTotalProps) => {
+export const OrderTotals = ({ order, tip, setTip }: OrderTotalProps) => {
 	
-	const subtotalAmount = useMemo(() => order.reduce((total, item) => total + ( item.price * item.quantity), 0), [order])
+	const subtotalAmount = useMemo(() => order.reduce((total, item) => total + (item.price * item.quantity), 0), [order])
+	const tipAmount = subtotalAmount * tip        // 🔢 calcula la propina
+  const totalAmount = subtotalAmount + tipAmount // 🔢 calcula el total
+
+
+
   return (
     <>
       <div className="bg-gray-50 rounded-lg p-4 space-y-4">
@@ -23,18 +36,25 @@ export const OrderTotals = ({ order }: OrderTotalProps) => {
         {/* Propina */}
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">Propina</span>
-          <span className="font-medium"></span>
+					<span className="font-medium"></span>
+					<span>{formatCurrency(tipAmount)}</span>
         </div>
 
         {/* Botones de porcentaje */}
         <div className="grid grid-cols-3 gap-2">
-          <button className="py-2 rounded border text-sm font-medium hover:bg-gray-100">
+					<button
+						onClick={() => setTip(0.25)}
+						className="py-2 rounded border text-sm font-medium hover:bg-gray-100" >
             25%
           </button>
-          <button className="py-2 rounded border text-sm font-medium hover:bg-gray-100">
+					<button
+						onClick={() => setTip(0.50)}
+						className="py-2 rounded border text-sm font-medium hover:bg-gray-100">
             50%
           </button>
-          <button className="py-2 rounded border text-sm font-medium hover:bg-gray-100">
+					<button
+						onClick={() => setTip(0.70)}
+						className="py-2 rounded border text-sm font-medium hover:bg-gray-100">
             70%
           </button>
         </div>
@@ -43,9 +63,10 @@ export const OrderTotals = ({ order }: OrderTotalProps) => {
 
         {/* Total */}
         <div className="flex justify-between text-base font-semibold">
-          <span>Total</span>
-          <span>Q 0.00</span>
-        </div>
+					<span>Total</span>
+					
+					<span>{formatCurrency(totalAmount) /* Format Currency es para que agarre el tipo de moneda ya establecida :)*/}</span>
+				</div>
       </div>
     </>
   );

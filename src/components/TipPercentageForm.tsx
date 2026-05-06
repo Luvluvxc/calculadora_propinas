@@ -1,6 +1,9 @@
+import type { Dispatch, SetStateAction } from 'react';
+// Para no tenes que poner react. 
+
 
 type PercentageFormProps = {
-  setTip: React.Dispatch<React.SetStateAction<number>>
+  setTip: Dispatch<SetStateAction<number>>
 }
 
 
@@ -37,9 +40,10 @@ export default function TipPercentageForm({setTip} : PercentageFormProps) {
               type="radio"
               id={tip.id}
               name="tip"
-              value={tip.value}
 							className="hidden peer"
-							onChange={e => setTip(Number(e.target.value))}
+							value={tip.value}
+							onChange={e => setTip(+e.target.value)}  //Para que resiva un evento e
+							// no sirve el Number con un type radio 
             />
             <label
               htmlFor={tip.id}
